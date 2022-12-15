@@ -3,6 +3,7 @@ sudo apt-get update
 sudo apt-get install fzf -y
 sudo apt-get install libnotify-bin -y
 sudo apt-get install beep -y
+sudo apt-get install zip unzip -y
 
 # tmux
 cp ~/Machine-Setup/.tmux.conf ~/.
