@@ -4,6 +4,7 @@ sudo apt-get install fzf -y
 sudo apt-get install libnotify-bin -y
 sudo apt-get install beep -y
 sudo apt-get install zip unzip -y
+sudo apt-get install silversearcher-ag -y
 
 # tmux
 cp ~/Machine-Setup/.tmux.conf ~/.
