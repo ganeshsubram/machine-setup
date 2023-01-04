@@ -13,5 +13,8 @@ alias .......='cd ../../../../../../..'
 # Git
 alias gs='git status'
 alias gco='git checkout master'
+alias gcom='git checkout main'
 alias gal='git add --all'
 alias cane='git commit --amend --no-edit'
+# Tmux
+alias tmux_refresh='tmux source-file ~/.tmux.conf'
