@@ -29,7 +29,6 @@
 
 5. Press `enter` to exit out of the prompt and back to your tmux terminal.
 
-
 ## Command-line Usage
 
 - `ctrl + r` for fzf fuzzy command history searching
@@ -46,6 +45,13 @@
 - `cane` for `git commit --amend --no-edit`
 
 ## Tmux Usage
+
+### Copy/Paste
+
+- Use `ctrl + [` and then click/highlight text to copy to tmux buffer
+- Use `right-click` + `l` to copy line into tmux buffer
+- Use `right-click` + various `copy` options in drop down menu to copy to tmux buffer.
+- Use `ctrl + ]` to paste from tmux buffer
 
 ### Panes
 
