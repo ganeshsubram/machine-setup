@@ -6,7 +6,9 @@ sudo apt-get update -y
 sudo apt install -y \
     beep \
     fzf \
+    ifupdown \
     libnotify-bin \
+    net-tools \
     silversearcher-ag \
     zip unzip
 
@@ -23,6 +25,14 @@ sudo apt install -y \
 pulseaudio -k
 systemctl --user enable pulseaudio
 systemctl --user start pulseaudio
+
+# wireshark
+sudo add-apt-repository -y ppa:wireshark-dev/stable
+sudo apt-get update -y
+sudo apt-get install -y wireshark
+sudo dpkg-reconfigure wireshark-common
+sudo adduser $USER wireshark
+sudo usermod -a -G wireshark "$USER"
 
 # bash
 cp ~/machine-setup/.bash_aliases ~/.bash_aliases
