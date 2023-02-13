@@ -8,17 +8,6 @@ case $- in
       *) return;;
 esac
 
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
-HISTCONTROL=ignoreboth
-
-# append to the history file, don't overwrite it
-shopt -s histappend
-
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
-
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
@@ -117,6 +106,25 @@ fi
 
 # fzf key bindings
 source /usr/share/doc/fzf/examples/key-bindings.bash
+
+# History mods
+# source: https://unix.stackexchange.com/questions/18212/bash-history-ignoredups-and-erasedups-setting-conflict-with-common-history
+# don't put duplicate lines or lines starting with space in the history.
+
+# See bash(1) for more options
+HISTCONTROL=ignoreboth
+# HISTCONTROL=ignoredups:erasedups
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=10000
+HISTFILESIZE=10000
+
+# PROMPT_COMMAND="history -n; history -w; history -c; history -r; $PROMPT_COMMAND"
+# source: https://stackoverflow.com/questions/12247777/share-history-between-panes-windows
+export PROMPT_COMMAND="history -a; history -n"
 
 ###################################################################################
 # End Ganesh's Mods
