@@ -1,6 +1,7 @@
 # System
 alias refresh='source ~/.bashrc'
 alias cue='code ~/.bash_aliases'
+alias machine='cd ~/machine-setup'
 # File system
 alias exp='xdg-open .'
 alias ll='ls -alF'
