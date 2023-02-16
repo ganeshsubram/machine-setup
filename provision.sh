@@ -59,13 +59,18 @@ ln -s ~/machine-setup/tmux/dracula/scripts ~/.tmux/plugins/tmux/
 # sudo adduser $USER wireshark
 # sudo usermod -a -G wireshark "$USER"
 
-# egpu switcher
+# egpu switchers
+# git clone https://github.com/karli-sjoberg/gswitch.git
+# cd gswitch/
+# sudo gswitch setup
+#
 # sudo snap install go --classic
-git clone git@github.com:hertg/egpu-switcher.git
-cd egpu-switcher
-make build -s
-sudo make install -s
-sudo egpu-switcher enable
+# git clone git@github.com:hertg/egpu-switcher.git
+# cd egpu-switcher
+# make build -s
+# sudo make install -s
+# sudo egpu-switcher enable
+
 
 source ~/.bashrc
 sudo apt autoremove -y
