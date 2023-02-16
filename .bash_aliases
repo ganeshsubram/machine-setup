@@ -29,3 +29,5 @@ alias gld='cd ~/glyd'
 alias gld_make='~/glyd/make.sh'
 alias gld_dc='~/glyd/build/glyd_data_collection'
 alias gld_gui='~/glyd/build/glyd_data_collection_gui'
+# SSH
+alias charmander='ssh glydways@192.168.55.1'
