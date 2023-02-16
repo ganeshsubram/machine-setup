@@ -2,6 +2,7 @@
 alias refresh='source ~/.bashrc'
 alias cue='code ~/.bash_aliases'
 alias machine='cd ~/machine-setup'
+alias code_machine='code ~/machine-setup'
 # File system
 alias exp='xdg-open .'
 alias ll='ls -alF'
@@ -23,6 +24,7 @@ alias cane='git commit --amend --no-edit'
 # Tmux
 alias tmux_refresh='tmux source-file ~/.tmux.conf'
 # Glydways
+alias code_gld='code ~/glyd'
 alias gld='cd ~/glyd'
 alias gld_make='~/glyd/make.sh'
 alias gld_dc='~/glyd/build/glyd_data_collection'
