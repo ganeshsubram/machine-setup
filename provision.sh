@@ -21,7 +21,7 @@ sudo apt install -y \
     intel-gpu-tools 
 
 # git
-git config --global user.email "ganeshs@glydways.com"
+git config --global user.email "ganesh@glydways.com"
 git config --global user.name "Ganesh Subramaniam"
 cp ~/machine-setup/.gitignore.txt ~/.gitignore
 
