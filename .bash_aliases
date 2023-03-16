@@ -26,8 +26,13 @@ alias tmux_refresh='tmux source-file ~/.tmux.conf'
 # Glydways
 alias code_gld='code ~/glyd'
 alias gld='cd ~/glyd'
-alias gld_make='~/glyd/make.sh'
-alias gld_dc='~/glyd/build/glyd_data_collection'
-alias gld_gui='~/glyd/build/glyd_data_collection_gui'
+alias gldmake='~/glyd/make.sh'
+alias glddc='~/glyd/build/glyd_data_collection'
+alias gldgui='~/glyd/build/glyd_data_collection_gui'
+alias xsens='cd ~/glyd/third_party/xsens_mt'
+alias ark='cd ~/glyd/third_party/ark'
 # SSH
 alias charmander='ssh glydways@192.168.55.1'
+alias orientexpresslte='ssh orientexpress@10.17.1.22'  # LTE, pw: Glydways1
+alias orientexpress='ssh orientexpress@192.168.64.147' # pw: Glydways1
+alias ontarioexpress='shh ontarioexpress@10.17.1.26'   # pw: Glydways1
