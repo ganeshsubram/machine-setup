@@ -14,11 +14,11 @@ sudo apt install -y \
     fzf \
     silversearcher-ag \
     zip unzip \
-    vim\
-    net-tools \
+    vim net-tools \
     ifupdown \
     gpustat \
-    intel-gpu-tools 
+    intel-gpu-tools \
+    renameutils
 
 # git
 git config --global user.email "ganesh@glydways.com"
@@ -70,7 +70,6 @@ ln -s ~/machine-setup/tmux/dracula/scripts ~/.tmux/plugins/tmux/
 # make build -s
 # sudo make install -s
 # sudo egpu-switcher enable
-
 
 source ~/.bashrc
 sudo apt autoremove -y
