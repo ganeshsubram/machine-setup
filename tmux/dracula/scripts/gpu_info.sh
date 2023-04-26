@@ -27,7 +27,8 @@ get_gpu_usages() {
   for platform in "${gpu_platforms[@]}"; do
     :
     if [[ "$platform" == Intel ]]; then
-      usage='unknown'
+      # usage=$(whoami)
+      usage=$( (timeout -s SIGKILL 1.1 sudo intel_gpu_top -o -) | sed '4q;d' | awk '{printf("%.2f%%%%", $7)}')
     elif [[ "$platform" == NVIDIA ]]; then
       usage=$(nvidia-smi | grep '%' | awk '{ print $13 }')
     else

@@ -40,6 +40,19 @@ get_load() {
   esac
 }
 
+get_temp() {
+    case $(uname -s) in
+    Linux | Darwin)
+      percent=$(sensors | grep 'Core' | awk '{sum += $3} END {printf("%.1fºC", sum/NR)}')
+      echo $percent
+      ;;
+
+    CYGWIN*|MINGW32*|MSYS*|MINGW*)
+      # TODO - windows compatability
+      ;;
+  esac
+}
+
 main() {
   # storing the refresh rate in the variable RATE, default is 5
   RATE=$(get_tmux_option "@dracula-refresh-rate" 5)
@@ -49,7 +62,8 @@ main() {
   else
     cpu_label=$(get_tmux_option "@dracula-cpu-usage-label" "CPU")
     cpu_percent=$(get_percent)
-    echo "$cpu_label $cpu_percent"
+    cpu_temp=$(get_temp)
+    echo "$cpu_label $cpu_percent $cpu_temp"
   fi
   sleep $RATE
 }

@@ -29,6 +29,19 @@
 
 5. Press `enter` to exit out of the prompt and back to your tmux terminal.
 
+6. Update sudoers so your account doesn't need to enter a password for sudo every time (quality of life + tmux plugins run some sudo commands):
+
+    a. Enter sudoers with:
+
+    ```
+    sudo visudo
+    ```
+
+    b. Append the following line to the resulting file editor (replace `ganesh` with whatever your user is):
+
+    ```
+    ganesh ALL=(ALL) NOPASSWD:ALL
+    ```
 ## Command-line Usage
 
 - `ctrl + r` for fzf fuzzy command history searching
@@ -38,11 +51,16 @@
 
 - Entering a git repo should automatically show the current branch name after the current path
 - `gs` for `git status`
+- `gb` for `git branch`
 - `gd` for `git diff`
-- `gco` for `git checkout master`
-- `gcom` for `git checkout main`
+- `gp` for `git push`
+- `gpf` for `git push -f`
 - `gal` for `git add --all`
 - `cane` for `git commit --amend --no-edit`
+- `gco` for `git checkout master`
+- `gcom` for `git checkout main`
+- `grbi <branch>` for `git rebase -i main <branch>`
+
 
 ## Tmux Usage
 
@@ -65,15 +83,15 @@
 To edit the widgets at the bottom of the pane, modify the following line in `~/machine-setup/tmux/main/plugins.tmux`:
 
 ```tmux
-set -g @dracula-plugins "git battery cpu-usage ram-usage gpu-usage time"
+set -g @dracula-plugins "git battery cpu-info ram-usage gpu-info time"
 ```
 
 and replace with your desired widgets in the quotes. The full list of widgets you can enter is:
 
 - `battery`
-- `cpu-usage`
+- `cpu-info`
 - `git`
-- `gpu-usage`
+- `gpu-info`
 - `ram-usage`
 - `network`
 - `network-bandwidth`

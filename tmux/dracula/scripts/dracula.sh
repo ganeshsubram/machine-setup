@@ -145,13 +145,13 @@ main() {
       script="#($current_dir/battery.sh)"
     fi
 
-    if [ $plugin = "gpu-usage" ]; then
+    if [ $plugin = "gpu-info" ]; then
       IFS=' ' read -r -a colors <<<$(get_tmux_option "@dracula-gpu-usage-colors" "pink dark_gray")
-      script="#($current_dir/gpu_usage.sh)"
+      script="#($current_dir/gpu_info.sh)"
     fi
 
-    if [ $plugin = "cpu-usage" ]; then
-      IFS=' ' read -r -a colors <<<$(get_tmux_option "@dracula-cpu-usage-colors" "orange dark_gray")
+    if [ $plugin = "cpu-info" ]; then
+      IFS=' ' read -r -a colors <<<$(get_tmux_option "@dracula-cpu-usage-colors" "yellow dark_gray")
       script="#($current_dir/cpu_info.sh)"
     fi
 

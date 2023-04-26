@@ -14,11 +14,15 @@ sudo apt install -y \
     fzf \
     silversearcher-ag \
     zip unzip \
-    vim net-tools \
-    ifupdown \
+    vim \
     gpustat \
     intel-gpu-tools \
-    renameutils
+    lm-sensors \
+    renameutils \
+    net-tools \
+    ifupdown \
+    iperf3 \
+    intetutils-traceroute
 
 # git
 git config --global user.email "ganesh@glydways.com"
