@@ -9,20 +9,21 @@ ln -s ~/machine-setup/.bash_aliases ~/.bash_aliases
 ln -s ~/machine-setup/.bashrc ~/.bashrc
 source ~/.bashrc
 
-# tools
+# apt-installs - do them all here so we only have to enter sudo creds once :)
 sudo apt install -y \
     fzf \
-    silversearcher-ag \
-    zip unzip \
-    vim \
     gpustat \
-    intel-gpu-tools \
-    lm-sensors \
-    renameutils \
-    net-tools \
     ifupdown \
+    intel-gpu-tools \
+    intetutils-traceroute \
     iperf3 \
-    intetutils-traceroute
+    lm-sensors \
+    net-tools \
+    openssh-server \
+    renameutils \
+    silversearcher-ag \
+    vim \
+    zip unzip
 
 # git
 git config --global user.email "ganesh@glydways.com"
@@ -40,6 +41,10 @@ tmux source-file ~/.tmux.conf
 ~/.tmux/plugins/tpm/scripts/install_plugins.sh
 rm -rf ~/.tmux/plugins/tmux/scripts
 ln -s ~/machine-setup/tmux/dracula/scripts ~/.tmux/plugins/tmux/
+
+# ssh
+sudo systemctl start ssh
+sudo systemctl enable ssh
 
 # bluetooth codecs
 # sudo add-apt-repository -y ppa:berglh/pulseaudio-a2dp

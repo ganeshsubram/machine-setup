@@ -66,6 +66,9 @@
 
 ### Copy/Paste
 
+- Press and hold `shift`, highlight text with mouse, then use either `ctrl + shift + c` or `right-click + copy` to copy to system clipboard
+- Use `ctrl + shift + v` to paste from system clipboard
+
 - Use `ctrl + [` and then click/highlight text to copy to tmux buffer
 - Use `right-click` + `l` to copy line into tmux buffer
 - Use `right-click` + various `copy` options in drop down menu to copy to tmux buffer.
