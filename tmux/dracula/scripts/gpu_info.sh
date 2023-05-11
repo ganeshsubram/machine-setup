@@ -28,16 +28,13 @@ get_gpu_usages() {
     :
     echo "GPU(${platform})"
     if [[ "$platform" == Intel ]]; then
-      usage=$( (timeout -s SIGKILL 1.1 sudo intel_gpu_top -o -) | sed '4q;d' | awk '{printf("%.2f%%%", $7)}')
-      usage=$(normalize_string_left "$usage" 7) # 100.00% == 7 places
-      echo "$usage"
+      usage=$( (timeout -s SIGKILL 1.1 sudo intel_gpu_top -o -) | sed '4q;d' | awk '{printf("%.2f%%%", $5)}')
+      normalize_percent_len "$usage "
     elif [[ "$platform" == NVIDIA ]]; then
-      usage=$(nvidia-smi | grep '%' | awk '{ print $13 }')
-      usage=$(normalize_string_left "$usage" 3) # 100% == 3 places
-
+      usage=$(nvidia-smi | grep '%' | awk '{ print $12 }')
       power=$(nvidia-smi | grep '%' | awk '{ print $5 }')
-      power=$(normalize_string_right "$power" 4) # 100W == 4 places
-      echo "${usage} ${power} "
+      temp=$(nvidia-smi | grep '%' | awk '{ print $3 }')
+      echo "${usage} ${power} ${temp} "
     else
       usage='unknown'
     fi
