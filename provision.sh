@@ -15,6 +15,8 @@ source ~/.bashrc
 # apt-installs - do them all here so we only have to enter sudo creds once :)
 #
 sudo apt install -y \
+    arp-scan \
+    curl \
     fzf \
     gpustat \
     intel-gpu-tools \
