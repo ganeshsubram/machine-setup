@@ -33,15 +33,67 @@
 
     a. Enter sudoers with:
 
-    ```
+    ```bash
     sudo visudo
     ```
 
     b. Append the following line to the resulting file editor (replace `ganesh` with whatever your user is):
 
-    ```
+    ```txt
     ganesh ALL=(ALL) NOPASSWD:ALL
     ```
+
+7. [Optional] Update `/etc/netplan/01-network-manager-all.yaml` to rename your network interfaces names to something that actually makes sense.
+
+    a. List all your network interfaces and their physical attributes with:
+
+    ```bash
+    lshw -C network
+    ```
+
+    b. Note the MAC addresses of each interface
+
+    c. Update `/etc/netplan/01-network-manager-all.yaml` with the following with your corresponding MAC addresses + new names:
+
+    ```yaml
+    # Let NetworkManager manage all devices on this system
+    network:
+    version: 2
+    renderer: NetworkManager
+    ethernets:
+        # XPS integrated wlan
+        # original-name: wlp0s20f3
+        wlan0:
+        dhcp4: true
+        match:
+            macaddress: 74:04:f1:53:78:7a
+        set-name: wlan0
+        # Gaming Station ethernet
+        # original-name: enx00056b00a5d4
+        eth0:
+        dhcp4: true
+        match:
+            macaddress: 00:05:6b:00:a5:d4
+        set-name: eth0
+    ```
+
+    d. Apply the changes with:
+
+    ```bash
+    sudo netplan apply
+    ```
+
+    e. If you get the following error:
+
+    ```log
+    WARNING: systemd-networkd is not running, output will be incomplete.
+
+    Failed to reload network settings: No such file or directory
+    Falling back to a hard restart of systemd-networkd.service
+    ```
+
+    just run the `sudo netplan apply` again and it should succeed without that error.
+
 ## Command-line Usage
 
 - `ctrl + r` for fzf fuzzy command history searching
