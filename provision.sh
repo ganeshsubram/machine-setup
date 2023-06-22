@@ -20,6 +20,7 @@ sudo apt install -y \
     lm-sensors \
     net-tools \
     openssh-server \
+    rename \
     renameutils \
     silversearcher-ag \
     vim \

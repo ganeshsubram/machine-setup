@@ -38,7 +38,7 @@ alias ark='cd ~/glyd/third_party/ark'
 alias ncom='cd ~/glyd/third_party/oxts_ncom_sdk'
 alias oxts='cd ~/glyd/glyd/onboard/imu/oxts'
 # SSH
-alias orin='tailscale ssh glydways@charmander-orin'
+# alias orin='tailscale ssh glydways@charmander-orin'
 # alias orientexpress='ssh orientexpress@192.168.64.147'  # Wi-Fi, pw: Glydways1
 # alias orientexpresslte='ssh orientexpress@10.17.1.22'   # LTE, pw: Glydways1
 # alias ontarioexpress='ssh ontarioexpress@192.168.65.96' # Wi-fi, pw: Glydways1
