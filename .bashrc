@@ -50,6 +50,18 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
+branch () {
+if [[ $# -ne 1 ]]; then
+    echo "Usage: branch <branch_name>"
+    echo "Description: Create a new Git branch, check it out, and set its upstream to the current branch."
+    return 1
+fi
+
+github_user=ganeshsubram
+    # Create a new branch and check it out, setting upstream to current branch
+    git checkout -b "$github_user/$1" --track
+}
+
 # git branch coloring
 parse_git_branch() { git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'; }
 if [ "$color_prompt" = yes ]; then
