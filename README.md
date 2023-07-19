@@ -8,29 +8,35 @@
     git clone git@github.com:ganeshsubram/machine-setup.git ~/machine-setup
     ```
 
-2. Enter the repo and install the tools using the provision script:
+3. If you're not Ganesh, set line 41 of `~/machine/setup/.bashrc ` to your own GitHub username:
+
+    ```bash
+    github_user=ganeshsubram
+    ```
+
+4. Enter the repo and install the tools using the provision script:
 
     ```bash
     cd ~/machine-setup
     ./provision.sh
     ```
 
-3. Open a tmux session:
+5. Open a tmux session:
 
     ```bash
     tmux
     ```
 
-4. Install tmux plugins with `ctrl + a` then `shift + i`, you should see the pane refresh with the following prompt:
+6. Install tmux plugins with `ctrl + a` then `shift + i`, you should see the pane refresh with the following prompt:
 
     ```txt
     TMUX environment reloaded.
     Done, press ENTER to continue.
     ```
 
-5. Press `enter` to exit out of the prompt and back to your tmux terminal.
+7. Press `enter` to exit out of the prompt and back to your tmux terminal.
 
-6. Update sudoers so your account doesn't need to enter a password for sudo every time (quality of life + tmux plugins run some sudo commands):
+8. Update sudoers so your account doesn't need to enter a password for sudo every time (quality of life + tmux plugins run some sudo commands):
 
     a. Enter sudoers with:
 
@@ -44,7 +50,7 @@
     ganesh ALL=(ALL) NOPASSWD:ALL
     ```
 
-7. [Optional] Update `/etc/netplan/01-network-manager-all.yaml` to rename your network interfaces names to something that actually makes sense.
+9. [Optional] Update `/etc/netplan/01-network-manager-all.yaml` to rename your network interfaces names to something that actually makes sense.
 
     a. List all your network interfaces and their physical attributes with:
 

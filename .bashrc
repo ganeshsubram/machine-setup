@@ -28,6 +28,8 @@ fi
 # Ganesh's Mods
 ###################################################################################
 
+github_user=ganeshsubram
+
 export TERM=xterm-256color
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
@@ -51,13 +53,12 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 branch () {
-if [[ $# -ne 1 ]]; then
-    echo "Usage: branch <branch_name>"
-    echo "Description: Create a new Git branch, check it out, and set its upstream to the current branch."
-    return 1
-fi
+    if [[ $# -ne 1 ]]; then
+        echo "Usage: branch <branch_name>"
+        echo "Description: Create a new Git branch, check it out, and set its upstream to the current branch."
+        return 1
+    fi
 
-github_user=ganeshsubram
     # Create a new branch and check it out, setting upstream to current branch
     git checkout -b "$github_user/$1" --track
 }
