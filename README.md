@@ -2,7 +2,7 @@
 
 ## Steps
 
-1. Clone in your home directory:
+1. Clone in your **home** directory:
 
     ```bash
     git clone git@github.com:ganeshsubram/machine-setup.git
