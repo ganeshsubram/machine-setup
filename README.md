@@ -11,6 +11,7 @@
 2. Enter the repo and install the tools using the provision script:
 
     ```bash
+    cd ~/machine-setup
     ./provision.sh
     ```
 
@@ -102,6 +103,7 @@
 ## Git Usage
 
 - Entering a git repo should automatically show the current branch name after the current path
+- `branch branch_name` to automatically create `username/branch_name`
 - `gs` for `git status`
 - `gb` for `git branch`
 - `gd` for `git diff`
@@ -111,6 +113,7 @@
 - `cane` for `git commit --amend --no-edit`
 - `gco` for `git checkout master`
 - `gcom` for `git checkout main`
+- `gpom` for `git pull origin main`
 - `grbi <branch>` for `git rebase -i main <branch>`
 
 
