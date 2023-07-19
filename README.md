@@ -5,7 +5,7 @@
 1. Clone in your **home** directory:
 
     ```bash
-    git clone git@github.com:ganeshsubram/machine-setup.git
+    git clone git@github.com:ganeshsubram/machine-setup.git ~/machine-setup
     ```
 
 2. Enter the repo and install the tools using the provision script:
