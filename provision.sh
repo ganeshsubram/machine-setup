@@ -20,6 +20,7 @@ sudo apt install -y \
     lm-sensors \
     net-tools \
     openssh-server \
+    python3-pip \
     rename \
     renameutils \
     silversearcher-ag \
