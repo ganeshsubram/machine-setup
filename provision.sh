@@ -13,12 +13,9 @@ source ~/.bashrc
 sudo apt install -y \
     fzf \
     gpustat \
-    ifupdown \
     intel-gpu-tools \
-    intetutils-traceroute \
     iperf3 \
     lm-sensors \
-    net-tools \
     openssh-server \
     python3-pip \
     rename \
@@ -26,6 +23,21 @@ sudo apt install -y \
     silversearcher-ag \
     vim \
     zip unzip
+
+# networking tools
+sudo add-apt-repository -y ppa:wireshark-dev/stable
+sudo apt-get update -y
+sudo apt-get install -y \
+    ethtool \
+    ifupdown \
+    inetutils-traceroute \
+    net-tools \
+    tshark \
+    vlan \
+    wireshark
+sudo dpkg-reconfigure wireshark-common
+sudo adduser $USER wireshark
+sudo usermod -a -G wireshark "$USER"
 
 # git
 git config --global user.email "ganesh@glydways.com"
@@ -61,14 +73,6 @@ sudo systemctl enable ssh
 # pulseaudio -k
 # systemctl --user enable pulseaudio
 # systemctl --user start pulseaudio
-
-# wireshark
-# sudo add-apt-repository -y ppa:wireshark-dev/stable
-# sudo apt-get update -y
-# sudo apt-get install -y wireshark
-# sudo dpkg-reconfigure wireshark-common
-# sudo adduser $USER wireshark
-# sudo usermod -a -G wireshark "$USER"
 
 # egpu switchers
 # git clone https://github.com/karli-sjoberg/gswitch.git
