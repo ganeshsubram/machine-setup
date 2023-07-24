@@ -165,6 +165,6 @@ HISTFILESIZE=10000
 export PROMPT_COMMAND="history -a; history -n"
 
 # Start terminal in a tmux session by default
-if command -v tmux &>/dev/null && [ -z "$TMUX" ]; then
-    tmux attach -t default || tmux new -s default
-fi
+#if command -v tmux &>/dev/null && [ -z "$TMUX" ]; then
+#    tmux attach -t default || tmux new -s default
+#fi
