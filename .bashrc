@@ -63,10 +63,28 @@ branch () {
     git checkout -b "$github_user/$1" --track
 }
 
+COLOR_BLACK='0;30'
+COLOR_RED='0;31'
+COLOR_GREEN='0;32'
+COLOR_BROWN='0;33'
+COLOR_BLUE='0;34'
+COLOR_MAGENTA='0;35'
+COLOR_CYAN='0;36'
+COLOR_WHITE='0;37'
+BOLD_COLOR_BLACK='01;30'
+BOLD_COLOR_RED='01;31'
+BOLD_COLOR_GREEN='01;32'
+BOLD_COLOR_BROWN='01;33'
+BOLD_COLOR_BLUE='01;34'
+BOLD_COLOR_MAGENTA='01;35'
+BOLD_COLOR_CYAN='01;36'
+BOLD_COLOR_WHITE='01;37'
+
 # git branch coloring
 parse_git_branch() { git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'; }
+
 if [ "$color_prompt" = yes ]; then
-    PS1="${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w/\[\033[01;33m\]\$(parse_git_branch) \[\033[00m\]\$ "
+    PS1="${debian_chroot:+($debian_chroot)}\[\033[${BOLD_COLOR_GREEN}m\]\u@\h\[\033[00m\]:\[\033[${BOLD_COLOR_BLUE}m\]\w/\[\033[${BOLD_COLOR_BROWN}m\]\$(parse_git_branch) \[\033[00m\]\$ "
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
