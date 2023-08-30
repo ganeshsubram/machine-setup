@@ -2,14 +2,18 @@
 
 sudo apt update -y
 
+#
 # bash
+#
 rm ~/.bash_aliases
 rm ~/.bashrc
 ln -s ~/machine-setup/.bash_aliases ~/.bash_aliases
 ln -s ~/machine-setup/.bashrc ~/.bashrc
 source ~/.bashrc
 
+#
 # apt-installs - do them all here so we only have to enter sudo creds once :)
+#
 sudo apt install -y \
     fzf \
     gpustat \
@@ -24,7 +28,9 @@ sudo apt install -y \
     vim \
     zip unzip
 
+#
 # networking tools
+#
 sudo add-apt-repository -y ppa:wireshark-dev/stable
 sudo apt-get update -y
 sudo apt-get install -y \
@@ -39,12 +45,16 @@ sudo dpkg-reconfigure wireshark-common
 sudo adduser $USER wireshark
 sudo usermod -a -G wireshark "$USER"
 
+#
 # git
+#
 git config --global user.email "ganesh@glydways.com"
 git config --global user.name "Ganesh Subramaniam"
 cp ~/machine-setup/.gitignore.txt ~/.gitignore
 
+#
 # tmux
+#
 rm -rf ~/.tmux/
 rm -rf ~/.tmux.conf
 sudo apt install -y tmux
@@ -56,11 +66,15 @@ tmux source-file ~/.tmux.conf
 rm -rf ~/.tmux/plugins/tmux/scripts
 ln -s ~/machine-setup/tmux/dracula/scripts ~/.tmux/plugins/tmux/
 
+#
 # ssh
+#
 sudo systemctl start ssh
 sudo systemctl enable ssh
 
+#
 # bluetooth codecs
+#
 # sudo add-apt-repository -y ppa:berglh/pulseaudio-a2dp
 # sudo apt install -y \
 #     libldac \
@@ -74,7 +88,9 @@ sudo systemctl enable ssh
 # systemctl --user enable pulseaudio
 # systemctl --user start pulseaudio
 
+#
 # egpu switchers
+#
 # git clone https://github.com/karli-sjoberg/gswitch.git
 # cd gswitch/
 # sudo gswitch setup
@@ -86,5 +102,8 @@ sudo systemctl enable ssh
 # sudo make install -s
 # sudo egpu-switcher enable
 
+#
+# Clean up
+#
 source ~/.bashrc
 sudo apt autoremove -y
