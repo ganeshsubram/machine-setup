@@ -5,7 +5,7 @@ alias machine='cd ~/machine-setup'
 alias code_machine='code ~/machine-setup'
 # File system
 alias exp='xdg-open .'
-alias ll='ls -alF'
+alias ll='ls -alhF'
 alias la='ls -A'
 alias lf='ls -CF'
 alias ..='cd ..'
