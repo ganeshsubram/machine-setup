@@ -23,3 +23,38 @@ normalize_percent_len() {
   printf "%${left_spaces}s%s%${right_spaces}s\n" "" $1 ""
 }
 
+normalize_string_right() {
+    local input="$1"
+    local max_length="$2"
+
+    # Calculate the length of padding needed
+    local padding=$((max_length - ${#input}))
+
+    # Check if padding is needed
+    if [ "$padding" -gt 0 ]; then
+        # Pad with spaces at the end
+        local padded_string="${input}$(printf "%${padding}s")"
+        echo "$padded_string"
+    else
+        # If input is already longer than or equal to max_length, return as is
+        echo "$input"
+    fi
+}
+
+normalize_string_left() {
+    local input="$1"
+    local max_length="$2"
+
+    # Calculate the length of padding needed
+    local padding=$((max_length - ${#input}))
+
+    # Check if padding is needed
+    if [ "$padding" -gt 0 ]; then
+        # Prepend spaces to the left
+        local padded_string="$(printf "%${padding}s")${input}"
+        echo "$padded_string"
+    else
+        # If input is already longer than or equal to max_length, return as is
+        echo "$input"
+    fi
+}

@@ -1,9 +1,3 @@
-#!/bin/bash
-#
-# Copyright © 2024 Glydways, Inc.
-# https://glydways.com/
-#
-
 #!/usr/bin/env bash
 # setting the locale, some users have issues with different locales, this forces the correct one
 export LC_ALL=en_US.UTF-8

@@ -32,6 +32,7 @@ main() {
   dark_gray='#282a36'
   light_purple='#bd93f9'
   dark_purple='#6272a4'
+  blue_violet='#8a2be2'
   cyan='#8be9fd'
   green='#50fa7b'
   orange='#ffb86c'
@@ -132,6 +133,7 @@ main() {
 
   # Status right
   tmux set-option -g status-right ""
+  tmux set-option -g status-right-length 300
 
   for plugin in "${plugins[@]}"; do
 
@@ -170,10 +172,9 @@ main() {
       script="#($current_dir/network.sh)"
     fi
 
-    if [ $plugin = "network-bandwidth" ]; then
-      IFS=' ' read -r -a colors <<<$(get_tmux_option "@dracula-network-bandwidth-colors" "cyan dark_gray")
-      tmux set-option -g status-right-length 250
-      script="#($current_dir/network_bandwidth.sh)"
+    if [ $plugin = "network-rate" ]; then
+      IFS=' ' read -r -a colors <<<$(get_tmux_option "@dracula-network-rate-colors" "blue_violet white")
+      script="#($current_dir/network_rate.sh)"
     fi
 
     if [ $plugin = "network-ping" ]; then

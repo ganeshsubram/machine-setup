@@ -159,7 +159,7 @@ and replace with your desired widgets in the quotes. The full list of widgets yo
 - `ram-usage`
 - `disk-usage`
 - `network`
-- `network-bandwidth`
+- `network-rate`
 - `network-ping`
 - `time`
 - `weather`
