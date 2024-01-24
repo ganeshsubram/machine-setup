@@ -157,7 +157,12 @@ main() {
 
     if [ $plugin = "ram-usage" ]; then
       IFS=' ' read -r -a colors <<<$(get_tmux_option "@dracula-ram-usage-colors" "cyan dark_gray")
-      script="#($current_dir/ram_info.sh)"
+      script="#($current_dir/ram_usage.sh)"
+    fi
+
+    if [ $plugin = "disk-usage" ]; then
+      IFS=' ' read -r -a colors <<<$(get_tmux_option "@dracula-disk-usage-colors" "orange dark_gray")
+      script="#($current_dir/disk_usage.sh)"
     fi
 
     if [ $plugin = "network" ]; then
