@@ -34,29 +34,29 @@ read_cache_and_compare() {
         # Scale down to Kbps, Mbps and Gbps
         if [ "$rx_rate" -ge 1000 ]; then
             rx_rate=$(expr $rx_rate / 1000)
-            rx_units="kb/s"
+            rx_units="Kib/s"
 
             if [ "$rx_rate" -ge 1000 ]; then
                 rx_rate=$(expr $rx_rate / 1000)
-                rx_units="mb/s"
+                rx_units="Mib/s"
 
                 if [ "$rx_rate" -ge 1000 ]; then
                     rx_rate=$(expr $rx_rate / 1000)
-                    rx_units="gb/s"
+                    rx_units="Gib/s"
                 fi
             fi
         fi
         if [ "$tx_rate" -ge 1000 ]; then
             tx_rate=$(expr $tx_rate / 1000)
-            tx_units="kb/s"
+            tx_units="Kib/s"
 
             if [ "$tx_rate" -ge 1000 ]; then
                 tx_rate=$(expr $tx_rate / 1000)
-                tx_units="mb/s"
+                tx_units="Mib/s"
 
                 if [ "$tx_rate" -ge 1000 ]; then
                     tx_rate=$(expr $tx_rate / 1000)
-                    tx_units="gb/s"
+                    tx_units="Gib/s"
                 fi
             fi
         fi
