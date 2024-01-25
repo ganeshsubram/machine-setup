@@ -25,38 +25,38 @@ read_cache_and_compare() {
         current_time=$(date +%s)
         time_diff=$((current_time - prev_time))
 
-        # Calculate the rate in bps
+        # Calculate the rate in bytes/s
         rx_rate=$(expr \( $rx - $prev_rx \) / $time_diff)
         tx_rate=$(expr \( $tx - $prev_tx \) / $time_diff)
-        rx_units="b/s"
-        tx_units="b/s"
+        rx_units="B/s"
+        tx_units="B/s"
 
         # Scale down to Kbps, Mbps and Gbps
         if [ "$rx_rate" -ge 1000 ]; then
             rx_rate=$(expr $rx_rate / 1000)
-            rx_units="Kib/s"
+            rx_units="KiB/s"
 
             if [ "$rx_rate" -ge 1000 ]; then
                 rx_rate=$(expr $rx_rate / 1000)
-                rx_units="Mib/s"
+                rx_units="MiB/s"
 
                 if [ "$rx_rate" -ge 1000 ]; then
                     rx_rate=$(expr $rx_rate / 1000)
-                    rx_units="Gib/s"
+                    rx_units="GiB/s"
                 fi
             fi
         fi
         if [ "$tx_rate" -ge 1000 ]; then
             tx_rate=$(expr $tx_rate / 1000)
-            tx_units="Kib/s"
+            tx_units="KiB/s"
 
             if [ "$tx_rate" -ge 1000 ]; then
                 tx_rate=$(expr $tx_rate / 1000)
-                tx_units="Mib/s"
+                tx_units="MiB/s"
 
                 if [ "$tx_rate" -ge 1000 ]; then
                     tx_rate=$(expr $tx_rate / 1000)
-                    tx_units="Gib/s"
+                    tx_units="GiB/s"
                 fi
             fi
         fi
