@@ -84,7 +84,7 @@ BOLD_COLOR_WHITE='01;37'
 parse_git_branch() { git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'; }
 
 if [ "$color_prompt" = yes ]; then
-    PS1="${debian_chroot:+($debian_chroot)}\[\033[${BOLD_COLOR_GREEN}m\]\u@\h\[\033[00m\]:\[\033[${BOLD_COLOR_BLUE}m\]\w/\[\033[${BOLD_COLOR_BROWN}m\]\$(parse_git_branch) \[\033[00m\]\$ "
+    PS1="${debian_chroot:+($debian_chroot)}\[\033[${BOLD_COLOR_BROWN}m\]\u@\h\[\033[00m\]:\[\033[${BOLD_COLOR_BLUE}m\]\w/\[\033[${BOLD_COLOR_BROWN}m\]\$(parse_git_branch) \[\033[00m\]\$ "
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -150,7 +150,7 @@ source /usr/share/doc/fzf/examples/key-bindings.bash
 # don't put duplicate lines or lines starting with space in the history.
 
 # See bash(1) for more options
-HISTCONTROL=ignoreboth
+# HISTCONTROL=ignoreboth
 # HISTCONTROL=ignoredups:erasedups
 
 # append to the history file, don't overwrite it
@@ -162,9 +162,11 @@ HISTFILESIZE=10000
 
 # PROMPT_COMMAND="history -n; history -w; history -c; history -r; $PROMPT_COMMAND"
 # source: https://stackoverflow.com/questions/12247777/share-history-between-panes-windows
-export PROMPT_COMMAND="history -a; history -n"
+#export PROMPT_COMMAND="history -a; history -n"
 
 # Start terminal in a tmux session by default
-if command -v tmux &>/dev/null && [ -z "$TMUX" ]; then
-    tmux attach -t default || tmux new -s default
-fi
+#if command -v tmux &>/dev/null && [ -z "$TMUX" ]; then
+#    tmux attach -t default || tmux new -s default
+#fi
+
+export GLYD_IGNORE_OS=1
