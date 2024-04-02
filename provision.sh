@@ -1,7 +1,5 @@
 #!/bin/bash
 
-sudo apt update -y
-
 #
 # bash
 #
@@ -12,54 +10,74 @@ ln -s ~/machine-setup/.bashrc ~/.bashrc
 source ~/.bashrc
 
 #
-# apt-installs - do them all here so we only have to enter sudo creds once :)
+# git - requires auth so do this first
 #
-sudo apt install -y \
-    arp-scan \
-    curl \
-    fzf \
-    gpustat \
-    intel-gpu-tools \
-    iperf3 \
-    lm-sensors \
-    openssh-server \
-    python3-pip \
-    rename \
-    renameutils \
-    silversearcher-ag \
-    vim \
-    zip unzip
-
-#   
-# networking tools
-#
-sudo add-apt-repository -y ppa:wireshark-dev/stable
-sudo apt-get update -y
-sudo apt-get install -y \
-    ethtool \
-    ifupdown \
-    inetutils-traceroute \
-    net-tools \
-    tshark \
-    vlan \
-    wireshark
-sudo dpkg-reconfigure wireshark-common
-sudo adduser $USER wireshark
-sudo usermod -a -G wireshark "$USER"
-
-#
-# git
-#
+sudo apt install gh -y
+gh auth login
+gh extension install davidraviv/gh-clean-branches
 git config --global user.email "ganesh@glydways.com"
 git config --global user.name "Ganesh Subramaniam"
 cp ~/machine-setup/.gitignore.txt ~/.gitignore
+
+#
+# apt-installs - do them all here so we only have to enter sudo creds once :)
+#
+sudo apt update -y
+sudo apt-get update -y
+sudo apt install -y \
+    arp-scan \
+    curl \
+    ethtool \
+    fping \
+    fzf \
+    gpustat \
+    ifupdown \
+    inetutils-traceroute \
+    intel-gpu-tools \
+    iperf3 \
+    iperf3 \
+    iproute2 \
+    ipset \
+    iputils-ping \
+    iw \
+    less \
+    lm-sensors \
+    make \
+    net-tools \
+    openssh-server \
+    parted \
+    pciutils \
+    python3-pip \
+    rename \
+    renameutils \
+    rsync \
+    silversearcher-ag \
+    tshark \
+    tmux \
+    unzip \
+    usbutils \
+    vim \
+    vlan \
+    wget \
+    whois \
+    wireless-tools \
+    zip \
+    zsh
+
+#
+# networking tools
+#
+sudo add-apt-repository -y ppa:wireshark-dev/stable
+sudo apt-get install -y wireshark
+sudo dpkg-reconfigure wireshark-common
+sudo adduser $USER wireshark
+sudo usermod -a -G wireshark "$USER"
 
 #
 # tmux
 #
 rm -rf ~/.tmux/
 rm -rf ~/.tmux.conf
-sudo apt install -y tmux
 mkdir -p ~/.tmux/plugins
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ln -s ~/machine-setup/tmux/.tmux.conf ~/.tmux.conf
