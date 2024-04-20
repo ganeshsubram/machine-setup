@@ -93,6 +93,11 @@ sudo systemctl start ssh
 sudo systemctl enable ssh
 
 #
+# tailscale
+#
+curl -fsSL https://tailscale.com/install.sh | sh
+
+#
 # bluetooth codecs
 #
 # sudo add-apt-repository -y ppa:berglh/pulseaudio-a2dp
