@@ -8,7 +8,7 @@ source $current_dir/utils.sh
 get_gpu_platforms() {
   case $(uname -s) in
   Linux)
-    gpu_platforms=$(lspci -v | grep VGA | head -n 5 | awk '{print $5}')
+    gpu_platforms="NVIDIA" # $(lspci -v | grep VGA | head -n 5 | awk '{print $5}')
     echo "${gpu_platforms}"
     ;;
 
