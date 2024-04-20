@@ -168,3 +168,15 @@ export PROMPT_COMMAND="history -a; history -n"
 if command -v tmux &>/dev/null && [ -z "$TMUX" ]; then
     tmux attach -t default || tmux new -s default
 fi
+<<<<<<< Updated upstream
+=======
+
+# Glydwys
+source ~/glyd/bazel/bash_completion/bazel-complete.bash
+
+# WSL 
+if [ ! -f /usr/local/bin/code ]; then
+    sudo ln -s /mnt/c/Program\ Files/Microsoft\ VS\ Code/bin/code /usr/local/bin/code
+fi
+export LC_ALL=C; unset LANGUAGE
+>>>>>>> Stashed changes
