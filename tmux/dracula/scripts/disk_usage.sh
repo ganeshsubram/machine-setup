@@ -7,7 +7,7 @@ source $current_dir/utils.sh
 
 get_usage()
 {
- used_over_available=$(df -hB 1G --output=avail,size / | awk 'NR==2 {print $1 "GB/"$2 "GB"}')
+ used_over_available=$(df -hB 1G --output=avail,size / | awk 'NR==2 {print $1 " GB/"$2 " GB"}')
  echo $used_over_available left
 }
 
