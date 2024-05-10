@@ -190,8 +190,22 @@ fi
 source ~/glyd/bazel/bash_completion/bazel-complete.bash
 export PATH="$PATH:$HOME/glyd/scripts/bin"
 
+#
 # WSL 
+#
 if [ ! -f /usr/local/bin/code ]; then
     sudo ln -s /mnt/c/Program\ Files/Microsoft\ VS\ Code/bin/code /usr/local/bin/code
 fi
+
 export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LANGUAGE=en_US.UTF-8
+
+# For Loading the SSH key
+/usr/bin/keychain -q --nogui $HOME/.ssh/id_ed25519
+source $HOME/.keychain/$(hostname)-sh
+
+if [ -z "$SSH_AUTH_SOCK" ]; then
+  #start ssh-agent
+  eval "$(ssh-agent -s)"
+fi
