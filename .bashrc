@@ -169,8 +169,11 @@ if command -v tmux &>/dev/null && [ -z "$TMUX" ]; then
     tmux attach -t default || tmux new -s default
 fi
 
+#
 # Glydwys
+#
 source ~/glyd/bazel/bash_completion/bazel-complete.bash
+export PATH="$PATH:$HOME/glyd/scripts/bin"
 
 # WSL 
 if [ ! -f /usr/local/bin/code ]; then
