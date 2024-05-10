@@ -17,6 +17,7 @@ gh auth login
 gh extension install davidraviv/gh-clean-branches
 git config --global user.email "ganesh@glydways.com"
 git config --global user.name "Ganesh Subramaniam"
+git config --global fetch.jobs $(nproc)
 cp ~/machine-setup/.gitignore.txt ~/.gitignore
 
 #
