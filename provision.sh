@@ -53,6 +53,7 @@ sudo apt install -y \
     renameutils \
     rsync \
     silversearcher-ag \
+    traceroute \
     tshark \
     tmux \
     unzip \
@@ -127,6 +128,51 @@ curl -fsSL https://tailscale.com/install.sh | sh
 # make build -s
 # sudo make install -s
 # sudo egpu-switcher enable
+
+#
+# Docker
+#
+
+is_docker_installed() {
+    command -v docker &> /dev/null
+}
+
+is_user_in_docker_group() {
+    groups $USER | grep &>/dev/null '\bdocker\b'
+}
+
+if ! is_docker_installed; then
+    echo "Docker is not installed. Proceeding with installation..."
+
+    # Install Docker
+    curl -fsSL https://get.docker.com -o get-docker.sh
+    sudo sh ./get-docker.sh
+
+    # Add the docker group if it does not exist
+    if ! getent group docker > /dev/null; then
+        sudo groupadd docker
+    fi
+
+    # Add the current user to the docker group
+    sudo usermod -aG docker $USER
+    newgrp docker
+
+    echo "Docker installation and user configuration completed."
+else
+    echo "Docker is already installed."
+fi
+
+if ! is_user_in_docker_group; then
+    echo "User $USER is not in the docker group. Adding the user to the group..."
+
+    # Add the current user to the docker group
+    sudo usermod -aG docker $USER
+    newgrp docker
+
+    echo "User $USER has been added to the docker group."
+else
+    echo "User $USER is already in the docker group."
+fi
 
 #
 # Clean up
