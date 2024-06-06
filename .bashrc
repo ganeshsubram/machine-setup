@@ -191,7 +191,7 @@ source ~/glyd/bazel/bash_completion/bazel-complete.bash
 export PATH="$PATH:$HOME/glyd/scripts/bin"
 
 #
-# WSL 
+# WSL
 #
 if [ ! -f /usr/local/bin/code ]; then
     sudo ln -s /mnt/c/Program\ Files/Microsoft\ VS\ Code/bin/code /usr/local/bin/code
@@ -210,5 +210,15 @@ if [ -z "$SSH_AUTH_SOCK" ]; then
   eval "$(ssh-agent -s)"
 fi
 
-# GPU accelerated GUIs
+# Required for GPU accelerated GUIs
 export MESA_D3D12_DEFAULT_ADAPTER_NAME=nvidia
+
+# Asus disables GPU on battery, so switch to software rendering if there's no NVIDIA gpu.
+# Using nvidia-smi since in WSL we won't see ant NVIDIA devices in lspci
+nvidia_output=$(nvidia-smi 2>&1)
+if [[ "$nvidia_output" == *"Failed to initialize NVML"* ]]; then
+  export LIBGL_ALWAYS_SOFTWARE=1
+    echo
+    echo -e "\e[33mNVIDIA GPU not detected, switching to software rendering"
+    echo
+fi
