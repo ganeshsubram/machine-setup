@@ -110,6 +110,21 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
+# git branch pruning
+prune () {
+echo "Fetching latest origin."
+git fetch --prune
+current_branch=$(git rev-parse --abbrev-ref HEAD)
+merged_branches=$(git branch -r | git branch -vv | grep 'origin/.*: gone]' | grep -v "*" | awk "{print \$1}" | xargs)
+if [[ "$merged_branches" == *"$current_branch"* ]]; then
+    echo "Currently checked out on merged branch. Either checkout `main` or manually delete."
+    merged_branches=$(echo "$merged_branches" | sed "s/^$current_branch //; s/ $current_branch$//")
+fi
+for branch in $merged_branches; do
+    git branch -D "$branch"
+done
+}
+
 # some more ls aliases
 alias ll='ls -alF'
 alias la='ls -A'
