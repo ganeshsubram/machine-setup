@@ -201,14 +201,15 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LANGUAGE=en_US.UTF-8
 
-# For Loading the SSH key
-/usr/bin/keychain -q --nogui $HOME/.ssh/id_ed25519
-source $HOME/.keychain/$(hostname)-sh
-
 if [ -z "$SSH_AUTH_SOCK" ]; then
   #start ssh-agent
   eval "$(ssh-agent -s)"
 fi
+
+# For Loading the SSH key
+# /usr/bin/keychain -q --nogui $HOME/.ssh/id_ed25519
+source $HOME/.keychain/$(hostname)-sh
+
 
 # Required for GPU accelerated GUIs
 export MESA_D3D12_DEFAULT_ADAPTER_NAME=nvidia
