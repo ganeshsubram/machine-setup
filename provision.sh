@@ -25,46 +25,52 @@ cp ~/machine-setup/.gitignore.txt ~/.gitignore
 #
 sudo apt update -y
 sudo apt-get update -y
-sudo apt install -y \
-    arp-scan \
-    curl \
-    ethtool \
-    fping \
-    fzf \
-    gpustat \
-    ifupdown \
-    inetutils-traceroute \
-    intel-gpu-tools \
-    iperf3 \
-    iperf3 \
-    iproute2 \
-    ipset \
-    iputils-ping \
-    iw \
-    less \
-    lm-sensors \
-    make \
-    net-tools \
-    openssh-server \
-    parted \
-    pciutils \
-    python3-pip \
-    rename \
-    renameutils \
-    rsync \
-    silversearcher-ag \
-    traceroute \
-    tshark \
-    tmux \
-    unzip \
-    usbutils \
-    vim \
-    vlan \
-    wget \
-    whois \
-    wireless-tools \
-    zip \
+
+packages=(
+    arp-scan
+    curl
+    ethtool
+    fping
+    fzf
+    gpustat
+    ifupdown
+    inetutils-traceroute
+    iperf3
+    iproute2
+    ipset
+    iputils-ping
+    iw
+    less
+    lm-sensors
+    make
+    net-tools
+    openssh-server
+    parted
+    pciutils
+    python3-pip
+    rename
+    renameutils
+    rsync
+    silversearcher-ag
+    traceroute
+    tshark
+    tmux
+    unzip
+    usbutils
+    vim
+    vlan
+    wget
+    whois
+    wireless-tools
+    zip
     zsh
+)
+
+for pkg in "${packages[@]}"; do
+    if ! sudo apt install -y "$pkg"; then
+        echo "Failed to install $pkg, continuing..."
+    fi
+done
 
 #
 # networking tools
