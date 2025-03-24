@@ -16,6 +16,9 @@ alias .....='cd ../../../../..'
 alias ......='cd ../../../../../..'
 alias .......='cd ../../../../../../..'
 # Git
+function git_branch {
+  git branch --show-current
+}
 alias gb='git branch'
 alias gd='git diff'
 alias gs='git status'
@@ -29,6 +32,8 @@ alias gal='git add --all'
 alias grbi='git rebase -i main'
 alias gcr='git rebase --continue'
 alias cane='git commit --amend --no-edit'
+alias gpfu='git push -f -u origin $(git_branch)'
+alias grs='git reset --soft HEAD~1 && git restore --staged .'
 # Tmux
 alias tmux_refresh='tmux source-file ~/.tmux.conf'
 # Glydways

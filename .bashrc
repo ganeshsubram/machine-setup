@@ -28,8 +28,6 @@ fi
 # Ganesh's Mods
 ###################################################################################
 
-github_user=ganeshsubram
-
 export TERM=xterm-256color
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
@@ -52,16 +50,7 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-branch () {
-    if [[ $# -ne 1 ]]; then
-        echo "Usage: branch <branch_name>"
-        echo "Description: Create a new Git branch, check it out, and set its upstream to the current branch."
-        return 1
-    fi
 
-    # Create a new branch and check it out, setting upstream to current branch
-    git checkout -b "$github_user/$1" --track
-}
 
 COLOR_BLACK='0;30'
 COLOR_RED='0;31'
@@ -109,21 +98,6 @@ if [ -x /usr/bin/dircolors ]; then
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
 fi
-
-# git branch pruning
-prune () {
-echo "Fetching latest origin."
-git fetch --prune
-current_branch=$(git rev-parse --abbrev-ref HEAD)
-merged_branches=$(git branch -r | git branch -vv | grep 'origin/.*: gone]' | grep -v "*" | awk "{print \$1}" | xargs)
-if [[ "$merged_branches" == *"$current_branch"* ]]; then
-    echo "Currently checked out on merged branch. Either checkout `main` or manually delete."
-    merged_branches=$(echo "$merged_branches" | sed "s/^$current_branch //; s/ $current_branch$//")
-fi
-for branch in $merged_branches; do
-    git branch -D "$branch"
-done
-}
 
 # some more ls aliases
 alias ll='ls -alF'
@@ -188,6 +162,7 @@ fi
 # Glydwys
 #
 source ~/glyd/bazel/bash_completion/bazel-complete.bash
+source ~/glyd/glyd/dev/env/env-setup.sh
 export PATH="$PATH:$HOME/glyd/scripts/bin"
 
 #
@@ -201,10 +176,9 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LANGUAGE=en_US.UTF-8
 
-if [ -z "$SSH_AUTH_SOCK" ]; then
-  #start ssh-agent
-  eval "$(ssh-agent -s)"
-fi
+#start ssh-agent
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
 
 # For Loading the SSH key
 # /usr/bin/keychain -q --nogui $HOME/.ssh/id_ed25519
