@@ -8,7 +8,7 @@ source $current_dir/utils.sh
 get_gpu_platforms() {
   case $(uname -s) in
   Linux)
-    gpu_platforms="NVIDIA" # $(lspci -v | grep VGA | head -n 5 | awk '{print $5}')
+    gpu_platforms=SW # $(glxinfo | grep "OpenGL renderer" | awk '{print $4}') # $(lspci -v | grep VGA | head -n 5 | awk '{print $5}')
     echo "${gpu_platforms}"
     ;;
 
@@ -38,8 +38,11 @@ get_gpu_usages() {
       power=$(nvidia-smi | grep '%' | awk '{ print $5 }')
       power=$(normalize_string_right "$power" 4) # 100W == 4 places
       echo "${usage} ${power} "
+    elif [[ "$platform" == SW ]]; then
+      echo ""
     else
-      usage='unknown'
+      usage='?'
+      echo "${usage}"
     fi
     echo "|"
   done
