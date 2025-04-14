@@ -3,6 +3,10 @@
 #
 # bash
 #
+echo
+echo "Setting up bash..."
+echo
+
 rm ~/.bash_aliases
 rm ~/.bashrc
 ln -s ~/machine-setup/.bash_aliases ~/.bash_aliases
@@ -12,6 +16,10 @@ source ~/.bashrc
 #
 # git - requires auth so do this first
 #
+echo
+echo "Setting up git..."
+echo
+
 git config --global user.email "ganeshsubram1@gmail.com"
 git config --global user.name "Ganesh Subramaniam"
 git config --global fetch.jobs $(nproc)
@@ -20,6 +28,10 @@ cp ~/machine-setup/.gitignore.txt ~/.gitignore
 #
 # tmux
 #
+echo
+echo "Setting up Tmux..."
+echo
+
 rm -rf ~/.tmux/
 rm -rf ~/.tmux.conf
 mkdir -p ~/.tmux/plugins
@@ -33,6 +45,10 @@ ln -s ~/machine-setup/tmux/dracula/scripts ~/.tmux/plugins/tmux/
 #
 # Docker
 #
+
+echo
+echo "Setting up Docker..."
+echo
 
 is_docker_installed() {
     command -v docker &> /dev/null
@@ -75,6 +91,31 @@ else
     echo "User $USER is already in the docker group."
 fi
 
+#
+# VS Code
+#
+echo
+echo "Setting up VS Code..."
+echo
+
+# Define the target directory and symlink
+VSCODE_SERVER_TARGET_DIR="/mnt/user/appdate/vscode-server"
+VSCODE_SERVER_SYMLINK="/root/.vscode-server"
+
+# Check if the symlink already exists
+if [ -L "$VSCODE_SERVER_SYMLINK" ]; then
+    echo ".vscode-server already exists. Overriding"
+    rm -f "$VSCODE_SERVER_SYMLINK"
+elif [ -e "$VSCODE_SERVER_SYMLINK" ]; then
+    echo "A file or directory already exists at $SYMLINK, but it is not a symlink. Removing it."
+    rm -rf "$VSCODE_SERVER_SYMLINK"
+fi
+
+# Create the symlink
+ln -s "$VSCODE_SERVER_TARGET_DIR" "$VSCODE_SERVER_SYMLINK"
+echo "Symlink created: $VSCODE_SERVER_SYMLINK -> $VSCODE_SERVER_TARGET_DIR"
+
+#
 #
 # Clean up
 #

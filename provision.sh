@@ -3,6 +3,10 @@
 #
 # bash
 #
+echo
+echo "Setting up bash..."
+echo
+
 rm ~/.bash_aliases
 rm ~/.bashrc
 ln -s ~/machine-setup/.bash_aliases ~/.bash_aliases
@@ -12,6 +16,10 @@ source ~/.bashrc
 #
 # git - requires auth so do this first
 #
+echo
+echo "Setting up git..."    
+echo
+
 sudo apt install gh -y
 gh auth login
 gh extension install davidraviv/gh-clean-branches
@@ -23,6 +31,10 @@ cp ~/machine-setup/.gitignore.txt ~/.gitignore
 #
 # apt-installs - do them all here so we only have to enter sudo creds once :)
 #
+echo
+echo "Installing packages..."
+echo
+
 sudo apt update -y
 sudo apt-get update -y
 
@@ -75,6 +87,10 @@ done
 #
 # networking tools
 #
+echo
+echo "Installing networking tools..."
+echo
+
 sudo add-apt-repository -y ppa:wireshark-dev/stable
 sudo apt-get install -y wireshark
 sudo dpkg-reconfigure wireshark-common
@@ -84,6 +100,10 @@ sudo usermod -a -G wireshark "$USER"
 #
 # tmux
 #
+echo
+echo "Setting up tmux..."
+echo
+
 rm -rf ~/.tmux/
 rm -rf ~/.tmux.conf
 mkdir -p ~/.tmux/plugins
@@ -97,6 +117,10 @@ ln -s ~/machine-setup/tmux/dracula/scripts ~/.tmux/plugins/tmux/
 #
 # ssh
 #
+echo
+echo "Setting up ssh..."
+echo
+
 sudo systemctl start ssh
 sudo systemctl enable ssh
 
@@ -138,6 +162,10 @@ curl -fsSL https://tailscale.com/install.sh | sh
 #
 # Docker
 #
+
+echo
+echo "Setting up Docker..."
+echo
 
 is_docker_installed() {
     command -v docker &> /dev/null
@@ -183,5 +211,10 @@ fi
 #
 # Clean up
 #
+
+echo
+echo "Cleaning up..."
+echo
+
 source ~/.bashrc
 sudo apt autoremove -y
