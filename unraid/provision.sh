@@ -11,6 +11,12 @@ rm ~/.bash_aliases
 rm ~/.bashrc
 ln -s ~/machine-setup/.bash_aliases ~/.bash_aliases
 ln -s ~/machine-setup/.bashrc ~/.bashrc
+
+# Ensure .bash_profile sources .bashrc if not already present
+if ! grep -q 'source ~/.bashrc' /root/.bash_profile; then
+    echo 'source ~/.bashrc' >> /root/.bash_profile
+fi
+
 source ~/.bashrc
 
 #
