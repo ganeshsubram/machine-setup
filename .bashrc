@@ -28,6 +28,49 @@ fi
 # Ganesh's Mods
 ###################################################################################
 
+#
+# SSH
+#
+
+# Start ssh-agent
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+
+# For Loading the SSH key
+# /usr/bin/keychain -q --nogui $HOME/.ssh/id_ed25519
+source $HOME/.keychain/$(hostname)-sh
+
+ssh_env() {
+  if [ $# -lt 1 ]; then
+    echo "Usage: ssh_env user@host [ssh args...]"
+    return 1
+  fi
+
+  local target="$1"
+  shift
+
+  local payload
+  payload="$(
+    {
+      [ -f "$HOME/.bashrc" ] && cat "$HOME/.bashrc"
+      echo
+      [ -f "$HOME/.bash_aliases" ] && cat "$HOME/.bash_aliases"
+    } | base64 -w0
+  )"
+
+  ssh -t "$target" "$@" "
+    tmp=\$(mktemp) &&
+    echo '$payload' | base64 -d > \"\$tmp\" &&
+    export DISABLE_AUTO_TMUX=1 &&
+    exec bash --rcfile \"\$tmp\" -i
+  "
+}
+
+
+#
+# Coloring
+#
+
 export TERM=xterm-256color
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
@@ -50,8 +93,6 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-
-
 COLOR_BLACK='0;30'
 COLOR_RED='0;31'
 COLOR_GREEN='0;32'
@@ -68,6 +109,39 @@ BOLD_COLOR_BLUE='01;34'
 BOLD_COLOR_MAGENTA='01;35'
 BOLD_COLOR_CYAN='01;36'
 BOLD_COLOR_WHITE='01;37'
+
+#
+# Git
+#
+
+git_prune_merged() {
+  # Ensure we’re inside a git repo
+  git rev-parse --is-inside-work-tree >/dev/null 2>&1 || {
+    echo "Not inside a git repository"
+    return 1
+  }
+
+  # Make sure main exists locally
+  if ! git show-ref --verify --quiet refs/heads/main; then
+    echo "Local 'main' branch not found"
+    return 1
+  fi
+
+  # Update main (optional but recommended)
+  git fetch origin main >/dev/null 2>&1
+
+  # Switch to main to avoid deleting current branch
+  current_branch=$(git branch --show-current)
+  if [ "$current_branch" != "main" ]; then
+    git checkout main || return 1
+  fi
+
+  # Delete all branches merged into main except main itself
+  git branch --merged main \
+    | grep -vE '^\*|main$' \
+    | xargs -r git branch -d
+}
+
 
 # git branch coloring
 parse_git_branch() { git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'; }
@@ -87,7 +161,11 @@ xterm* | rxvt*)
 *) ;;
 esac
 
-# enable color support of ls and also add handy aliases
+
+#
+# Aliases
+#
+
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
@@ -99,22 +177,9 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-# some more ls aliases
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
-
-# colored GCC warnings and errors
-#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
@@ -131,14 +196,19 @@ if ! shopt -oq posix; then
     fi
 fi
 
-# fzf key bindings
+#
+# FZF
+#
+
 source /usr/share/doc/fzf/examples/key-bindings.bash
 
-# History mods
+#
+# History
+#
+
 # source: https://unix.stackexchange.com/questions/18212/bash-history-ignoredups-and-erasedups-setting-conflict-with-common-history
 # don't put duplicate lines or lines starting with space in the history.
 
-# See bash(1) for more options
 HISTCONTROL=ignoreboth
 # HISTCONTROL=ignoredups:erasedups
 
@@ -153,17 +223,16 @@ HISTFILESIZE=10000
 # source: https://stackoverflow.com/questions/12247777/share-history-between-panes-windows
 export PROMPT_COMMAND="history -a; history -n"
 
+#
+# Tmux
+#
+
 # Start terminal in a tmux session by default
-if command -v tmux &>/dev/null && [ -z "$TMUX" ]; then
+if command -v tmux &>/dev/null && \
+   [ -z "$TMUX" ] && \
+   [ -z "$DISABLE_AUTO_TMUX" ]; then
     tmux attach -t default || tmux new -s default
 fi
-
-#
-# Glydwys
-#
-source ~/glyd/bazel/bash_completion/bazel-complete.bash
-source ~/glyd/glyd/dev/env/env-setup.sh
-export PATH="$PATH:$HOME/glyd/scripts/bin"
 
 #
 # WSL
@@ -176,14 +245,8 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LANGUAGE=en_US.UTF-8
 
-#start ssh-agent
-eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/id_ed25519
-
-# For Loading the SSH key
-# /usr/bin/keychain -q --nogui $HOME/.ssh/id_ed25519
-source $HOME/.keychain/$(hostname)-sh
-
+# Set default display
+export DISPLAY=:0.0
 
 # Required for GPU accelerated GUIs
 export MESA_D3D12_DEFAULT_ADAPTER_NAME=nvidia
@@ -197,3 +260,16 @@ if [[ "$nvidia_output" == *"Failed to initialize NVML"* ]]; then
     echo -e "\e[33mNVIDIA GPU not detected, switching to software rendering"
     echo
 fi
+
+#
+# Claude
+#
+
+export CLAUDE_CODE_MAX_OUTPUT_TOKENS=64000
+
+#
+# Glydways
+#
+source ~/glyd/bazel/bash_completion/bazel-complete.bash
+source ~/glyd/glyd/dev/env/env-setup.sh
+export PATH="$PATH:$HOME/glyd/scripts/bin"
