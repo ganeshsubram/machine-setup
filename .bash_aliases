@@ -1,9 +1,11 @@
+#
 # System
+#
 alias refresh='source ~/.bashrc'
 alias cue='code ~/.bash_aliases'
 alias machine='cd ~/machine-setup'
 alias code_machine='code ~/machine-setup'
-# File system
+
 alias exp='xdg-open .'
 alias ll='ls -alhF'
 alias la='ls -A'
@@ -15,7 +17,10 @@ alias ....='cd ../../../..'
 alias .....='cd ../../../../..'
 alias ......='cd ../../../../../..'
 alias .......='cd ../../../../../../..'
+
+#
 # Git
+#
 function git_branch {
   git branch --show-current
 }
@@ -31,26 +36,55 @@ alias gpom='git pull origin main'
 alias gal='git add --all'
 alias grbi='git rebase -i main'
 alias gcr='git rebase --continue'
+alias gcm='git commit -m'
 alias cane='git commit --amend --no-edit'
 alias gpfu='git push -f -u origin $(git_branch)'
 alias grs='git reset --soft HEAD~1 && git restore --staged . && git status'
 alias gsr='git restore --staged . && git status'
+
+#
 # Tmux
+#
 alias tmux_refresh='tmux source-file ~/.tmux.conf'
+
+#
+# Docker
+#
+alias docker_enable='systemctl --user enable docker-desktop'
+alias docker_start='systemctl --user start docker-desktop'
+alias docker_stop='systemctl --user stop docker-desktop'
+
 ############################
 # Glydways                 #
 ############################
+
+#
 # SSH
+#
 alias keygenr='ssh-keygen -f "$HOME/.ssh/known_hosts" -R "192.168.200.12" &&  ssh-keygen -f "$HOME/.ssh/known_hosts" -R "192.168.100.11"'
-alias heiwa='ssh heiwa'
-alias sonic='ssh sonic'
-alias knuckles='ssh knuckles'
-alias tails='ssh tails'
-alias ops-heiwa='ssh gdf-ops-heiwa'
-alias ops-sonic='ssh gdf-ops-sonic'
-alias ops-knuckles='ssh gdf-ops-knuckles'
-alias ops-tails='ssh gdf-ops-tails'
+
+alias 301='ssh_env glydways@agdf-ops-b2-301'
+alias 302='ssh_env glydways@agdf-ops-b2-302'
+alias 303='ssh_env glydways@agdf-ops-b2-303'
+alias 304='ssh_env glydways@agdf-ops-b2-304'
+alias 305='ssh_env glydways@agdf-ops-b2-305'
+
+alias 301gui='ssh_env -L 8080:192.168.100.22:8080 glydways@agdf-ops-b2-301'
+alias 302gui='ssh_env -L 8080:192.168.100.22:8080 glydways@agdf-ops-b2-302'
+alias 303gui='ssh_env -L 8080:192.168.100.22:8080 glydways@agdf-ops-b2-303'
+alias 304gui='ssh_env -L 8080:192.168.100.22:8080 glydways@agdf-ops-b2-304'
+alias 305gui='ssh_env -L 8080:192.168.100.22:8080 glydways@agdf-ops-b2-305'
+
+#
 # Repo
+#
+
+alias auth='bazel run @ark//:auth -- -u ganesh'
+alias compile='bazel run //:compile_commands'
+alias gui='bazel run //glyd/onboard/gui:onboard-gui --'
+alias play='bazel run //glyd/onboard/pipelines/playback --'
+alias downloadlog='bazel run @ark//:download-log -- -o ~/glyd_logs/'
+
 alias ark='cd $HOME/glyd/third_party/ark'
 alias at128='cd $HOME/glyd/glyd/onboard/lidar/hesai/at128'
 alias at128='cd $HOME/glyd/glyd/onboard/lidar/hesai/jt128'
@@ -61,6 +95,7 @@ alias basetest='bazel test //glyd/base/...'
 alias conti='cd $HOME/glyd/glyd/onboard/radar/continental/ars540'
 alias contitest='bazel test //glyd/onboard/radar/continental/ars540/...'
 alias door='cd glyd/onboard/doors'
+alias doorgui='bazel run //glyd/onboard/doors/gui --'
 alias doortest='bazel test //glyd/onboard/doors/...'
 alias estoptest='bazel test //glyd/onboard/estop/...'
 alias gld='cd $HOME/glyd'
@@ -84,23 +119,14 @@ alias velodyne='cd $HOME/glyd/glyd/onboard/lidar/velodyne_v2'
 alias velodynetest='bazel test //glyd/onboard/lidar/velodyne_v2/...'
 alias xsens='cd $HOME/glyd/glyd/onboard/imu/xsens/mti'
 alias xsenstest='bazel test //glyd/onboard/imu/xsens/mti/...'
-# Tools
-alias compile='bazel run //:compile_commands'
-alias gui='bazel run //glyd/onboard/gui:onboard-gui --'
-alias play='bazel run //glyd/onboard/pipelines/playback --'
-alias downloadlog='bazel run @ark//:download-log -- -o ~/glyd_logs/'
-# Deployment
-alias build-gui='bazel build //glyd/onboard/gui:onboard-gui.release'
-alias deploy-gui='build-gui && bazel run @ark//:supervisor-tool -- --host localhost:8083 --deploy-archive /home/ganesh/glyd/bazel-out/k8-opt/bin/glyd/onboard/gui/onboard-gui.release.tar.zst'
-alias run-dt='bazel run //glyd/onboard/pipelines/device_testing'
-alias build-dt='bazel build //glyd/onboard/pipelines/device_testing:device_testing_release-linux-aarch64'
-alias deploy-dt='build-dt && bazel run @ark//:supervisor-tool -- --host localhost:8081 --deploy-archive /home/ganesh/glyd/bazel-out/k8-opt/bin/glyd/onboard/pipelines/device_testing/device_testing_release-linux-aarch64.tar.zst'
-alias build-b1='bazel build //glyd/onboard/pipelines/b1:autonomy_release-linux-aarch64'
-alias deploy-b1='build-b1 && bazel run @ark//:supervisor-tool -- --host localhost:8081 --deploy-archive /home/ganesh/glyd/bazel-out/k8-opt/bin/glyd/onboard/pipelines/b1/autonomy_release-linux-aarch64.tar.zst'
-# Docker
-alias docker_enable='systemctl --user enable docker-desktop'
-alias docker_start='systemctl --user start docker-desktop'
-alias docker_stop='systemctl --user stop docker-desktop'
+
+#
+# B2
+#
+alias hla_release='bazel build --stamp --enable_cuda //glyd/onboard/pipelines/b2:autonomy_release-linux-aarch64'
+alias hla_deploy='ark-supervisor-tool --host hla:8081 --deploy-archive bazel-bin/glyd/onboard/pipelines/b2/autonomy_release-linux-aarch64.tar.zst'
+alias hla_release_and_deploy='hla_release && hla_deploy'
+
 #
 # ATP/VCU/ESTOP ELF and IMG build commands
 #
@@ -115,7 +141,6 @@ alias vcuelfcopy='scp bazel-out/k8-opt-ST-3b22708a4922/bin/glyd/onboard/vcu/pipe
 alias build_elves='atpelf && estopelf && vcuelf'
 alias copy_elves='atpelfcopy && estopelfcopy && vcuelfcopy'
 alias deploy_elves='build_elves && copy_elves'
-
 
 alias atpimg='bazel build --stamp //glyd/onboard/atp/pipelines/b2:atp_pipeline.img'
 alias estopimg='bazel build --stamp //glyd/onboard/estop/pipelines:estop_pipeline.img'
